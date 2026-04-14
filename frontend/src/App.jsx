@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import useThemeStore from './store/themeStore';
 
 // Admin Pages
 import AdminLoginPage from './pages/Admin/AdminLoginPage';
@@ -19,6 +20,16 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+    const { theme } = useThemeStore();
+    useEffect(() => {
+        const root = window.document.documentElement;
+        if (theme === 'dark') {
+            root.classList.add('dark');
+        } else {
+            root.classList.remove('dark');
+        }
+    }, [theme]);
+
     return (
         <Router>
             <Routes>

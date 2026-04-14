@@ -1,12 +1,11 @@
-const user = require('../models/User.js');
-
+const User = require('../models/User.js'); // Capitalized by convention
 const generateToken = require('../utils/generateToken.js');
-
-// Admin Login Controller
 
 const adminLogin = async(req, res) => {
     const {username, password} = req.body;
-    const existingUser = await user.findOne({username}).select('+password');
+
+    const existingUser = await User.findOne({username}).select('+password');
+
     if(existingUser && (await existingUser.matchPassword(password))){
         res.json({
             _id: existingUser._id,
@@ -20,4 +19,4 @@ const adminLogin = async(req, res) => {
     }
 }
 
-module.exports = {adminLogin};
+module.exports = { adminLogin };
