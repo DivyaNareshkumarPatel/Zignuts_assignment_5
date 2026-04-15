@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { fetchBlogBySlug } from '../../api/api';
-import useThemeStore from '../../store/themeStore'; // Import Zustand store
+import useThemeStore from '../../store/themeStore';
 
 // Icon Components
 const Icons = {
@@ -47,7 +47,7 @@ const BlogDetailsPage = () => {
             <Icons.Error />
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Page Not Found</h2>
             <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md">{error}</p>
-            <button 
+            <button
                 onClick={() => navigate('/')}
                 className="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition-all"
             >
@@ -65,7 +65,7 @@ const BlogDetailsPage = () => {
                         <Icons.Back />
                         Back to Articles
                     </Link>
-                    
+
                     {/* Dark Mode Toggle */}
                     <button
                         onClick={toggleTheme}
@@ -80,14 +80,14 @@ const BlogDetailsPage = () => {
                 {/* Featured Image Header */}
                 <header className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
                     <div className="absolute inset-0 bg-gray-900">
-                        <img 
-                            src={blog.imageFeatured || blog.imageThumbnail} 
-                            alt={blog.title} 
+                        <img
+                            src={blog.imageFeatured || blog.imageThumbnail}
+                            alt={blog.title}
                             className="w-full h-full object-cover opacity-60"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     </div>
-                    
+
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 max-w-4xl mx-auto w-full">
                         <div className="mb-4">
                             <span className="inline-block bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
@@ -111,7 +111,7 @@ const BlogDetailsPage = () => {
                 {/* Article Content */}
                 <div className="max-w-3xl mx-auto px-5 py-12 md:py-20">
                     <div className="prose prose-lg md:prose-xl max-w-none text-gray-800 dark:text-gray-200 leading-relaxed font-serif transition-colors">
-                        <div 
+                        <div
                             className="whitespace-pre-wrap first-letter:text-5xl first-letter:font-bold first-letter:text-green-700 dark:first-letter:text-green-500 first-letter:mr-3 first-letter:float-left"
                             dangerouslySetInnerHTML={{ __html: blog.description }}
                         />
