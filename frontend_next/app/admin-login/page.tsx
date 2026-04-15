@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
             setLoading(false);
             setTimeout(() => setError(null), 5000);
         } else {
-            router.push('/admin/blogs');
+            window.location.href = '/admin/blogs';
         }
     };
 
