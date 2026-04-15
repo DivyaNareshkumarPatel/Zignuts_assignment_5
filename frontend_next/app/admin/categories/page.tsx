@@ -38,7 +38,6 @@ export default function ListCategoriesPage() {
                     <thead className="bg-gray-50 dark:bg-gray-900/50 dark:text-white">
                         <tr>
                             <th className="p-4">Name</th>
-                            <th className="p-4">Slug</th>
                             <th className="p-4 text-right">Actions</th>
                         </tr>
                     </thead>
@@ -46,7 +45,6 @@ export default function ListCategoriesPage() {
                         {categories.map((cat) => (
                             <tr key={cat._id}>
                                 <td className="p-4">{cat.name}</td>
-                                <td className="p-4">{cat.slug}</td>
                                 <td className="p-4 text-right">
                                     <Link href={`/admin/categories/edit/${cat._id}`} className="text-blue-500 mr-4">Edit</Link>
                                     <button onClick={() => handleDelete(cat._id)} className="text-red-500">Delete</button>

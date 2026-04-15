@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-// Point Axios to Next.js instead of Express
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 axios.defaults.baseURL = API_URL;
+
+axios.defaults.withCredentials = true;
 export interface Category {
     _id: string;
     name: string;
@@ -30,9 +31,6 @@ export const deleteCategory = async (id: string): Promise<void> => {
     await axios.delete(`/api/admin/categories/${id}`);
 };
 
-// ==========================================
-// BLOG API
-// ==========================================
 export interface Blog {
     _id: string;
     title: string;
