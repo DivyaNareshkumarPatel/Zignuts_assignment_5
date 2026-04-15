@@ -1,22 +1,8 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
+// Point Axios to Next.js instead of Express
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 axios.defaults.baseURL = API_URL;
-
-const getAuthHeaders = (isFile: boolean = false): { headers: Record<string, string> } => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('adminToken') : null;
-    
-    const headers: Record<string, string> = {
-        Authorization: `Bearer ${token ?? ''}`, 
-    };
-    if (!isFile) {
-        headers['Content-Type'] = 'application/json';
-    }
-    
-    return { headers };
-};
-
 export interface Category {
     _id: string;
     name: string;
@@ -26,35 +12,27 @@ export interface Category {
 }
 
 export const fetchCategories = async (): Promise<Category[]> => {
-    const { data } = await axios.get<Category[]>(
-        '/api/admin/categories', 
-        getAuthHeaders()
-    );
+    const { data } = await axios.get<Category[]>('/api/admin/categories');
     return data;
 };
 
 export const createCategory = async (name: string): Promise<Category> => {
-    const { data } = await axios.post<Category>(
-        '/api/admin/categories',
-        { name },
-        getAuthHeaders()
-    );
+    const { data } = await axios.post<Category>('/api/admin/categories', { name });
     return data;
 };
 
 export const updateCategory = async (id: string, name: string): Promise<Category> => {
-    const { data } = await axios.put<Category>(
-        `/api/admin/categories/${id}`,
-        { name },
-        getAuthHeaders()
-    );
+    const { data } = await axios.put<Category>(`/api/admin/categories/${id}`, { name });
     return data;
 };
 
 export const deleteCategory = async (id: string): Promise<void> => {
-    await axios.delete(`/api/admin/categories/${id}`, getAuthHeaders());
+    await axios.delete(`/api/admin/categories/${id}`);
 };
 
+// ==========================================
+// BLOG API
+// ==========================================
 export interface Blog {
     _id: string;
     title: string;
@@ -69,35 +47,27 @@ export interface Blog {
 }
 
 export const fetchAdminBlogs = async (): Promise<Blog[]> => {
-    const { data } = await axios.get<Blog[]>('/api/admin/blogs', getAuthHeaders());
+    const { data } = await axios.get<Blog[]>('/api/admin/blogs');
     return data;
 };
 
 export const fetchBlogById = async (id: string): Promise<Blog> => {
-    const { data } = await axios.get<Blog>(`/api/admin/blogs/${id}`, getAuthHeaders());
+    const { data } = await axios.get<Blog>(`/api/admin/blogs/${id}`);
     return data;
 };
 
 export const createBlog = async (formData: FormData): Promise<Blog> => {
-    const { data } = await axios.post<Blog>(
-        '/api/admin/blogs',
-        formData,
-        getAuthHeaders(true)
-    );
+    const { data } = await axios.post<Blog>('/api/admin/blogs', formData);
     return data;
 };
 
 export const updateBlog = async (id: string, formData: FormData): Promise<Blog> => {
-    const { data } = await axios.put<Blog>(
-        `/api/admin/blogs/${id}`,
-        formData,
-        getAuthHeaders(true)
-    );
+    const { data } = await axios.put<Blog>(`/api/admin/blogs/${id}`, formData);
     return data;
 };
 
 export const deleteBlog = async (id: string): Promise<void> => {
-    await axios.delete(`/api/admin/blogs/${id}`, getAuthHeaders());
+    await axios.delete(`/api/admin/blogs/${id}`);
 };
 
 export const fetchLatestBlogs = async (): Promise<Blog[]> => {

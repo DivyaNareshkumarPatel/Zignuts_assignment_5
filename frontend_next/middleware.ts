@@ -8,6 +8,7 @@ export default withAuth({
 
 export const config = { 
     matcher: [
-        "/admin/:path*" 
+        "/admin/:path*",       // Protects your React UI Pages
+        "/api/admin/:path*"    // <-- ADD THIS: Protects your Next.js Backend APIs
     ] 
 };
